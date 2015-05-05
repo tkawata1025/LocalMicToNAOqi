@@ -12,7 +12,6 @@
 #include <alcommon/albroker.h>
 #include <alcommon/almodule.h>
 #include <alcommon/albrokermanager.h>
-#include "audiocaptureremote.h"
 
 #ifdef AVCAPTURE_IS_REMOTE
 # define ALCALL
