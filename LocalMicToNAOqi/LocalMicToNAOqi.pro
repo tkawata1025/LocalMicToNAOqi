@@ -21,5 +21,9 @@ HEADERS  += mainwindow.h NAOqi/nao_mic_interface/nao_mic_interface.h \
 
 FORMS    += mainwindow.ui
 
-
-LIBS += -L"$$PWD/NAOqi/build/lib" -lNaoMicInterface
+win32 {
+LIBS += -lNaoMicInterface
+}
+else:macx {
+LIBS += -rpath @loader_path/../Library -L"$$PWD/NAOqi/build/lib" -lNaoMicInterface
+}
