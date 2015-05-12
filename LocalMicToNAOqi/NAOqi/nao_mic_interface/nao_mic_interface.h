@@ -14,7 +14,15 @@ const int CHANNELBYTES = 2;        // 16 bit signed short
 const int NBOFOUTPUTCHANNELS = 2;  // stereo
 const int BUFFERSAMPLESIZE = 16384;  // Sample size. (This value shouldn't exceed 16384)
 
-class NaoMicInterface
+#ifndef DLLAPI
+# ifdef _WIN32
+#   define DLLAPI __declspec(dllimport)
+# else
+#   define DLLAPI 
+# endif // _WIN32
+#endif //DLLAPI
+
+class DLLAPI NaoMicInterface
 {
 	NaoMicInterface();
 

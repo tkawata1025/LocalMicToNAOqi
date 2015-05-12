@@ -3,8 +3,10 @@
  * Updated 2015/05/05
  */
 
-#define DLLAPI __declspec(dllexport)
-
+#ifdef _WIN32
+  #define DLLAPI __declspec(dllexport)
+#endif // _WIN32
+ 
 #include "nao_mic_interface.h"
 
 #include <signal.h>
@@ -35,7 +37,7 @@
 static AL::ALAudioDeviceProxy *s_audiodeviceProxy = NULL;
 static std::string s_robotIpAddress = "";
 
-static pthread_mutex_t	s_mutex;
+static pthread_mutex_t	s_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 class ThreadLockHelper
 {
@@ -164,6 +166,8 @@ bool NaoMicInterface::isConnected() const
 
 bool NaoMicInterface::writeAudioBuffer(signed short *buffer, int samples)
 {
+   LOCKER(s_mutex);
+
 	bool r = false;
 	if (s_audiodeviceProxy)
 	{
@@ -199,5 +203,4 @@ void NaoMicInterface::setSpeakerVolume(int v)
 		s_audiodeviceProxy->setOutputVolume(v);
 	}
 }
-
 

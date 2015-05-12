@@ -18,6 +18,8 @@ static QMutex           s_consoleMutex;
 static QQueue<QString>  s_pendingConsoleMessages;
 static MainWindow       *s_window = NULL;
 
+const int QTAUDIOBUFFERSIZE = 5000;
+
 RenderArea::RenderArea(QWidget *parent)
     : QWidget(parent)
 {
@@ -138,7 +140,7 @@ MainWindow::~MainWindow()
 void MainWindow::startAudioInput()
 {
     m_audioInput = new QAudioInput(m_device, m_format, this);
-    m_audioInput->setBufferSize(500);
+    m_audioInput->setBufferSize(QTAUDIOBUFFERSIZE);
     connect(m_audioInput, SIGNAL(notify()), SLOT(notified()));
     connect(m_audioInput, SIGNAL(stateChanged(QAudio::State)), SLOT(stateChanged(QAudio::State)));
     m_audioProxy->start();

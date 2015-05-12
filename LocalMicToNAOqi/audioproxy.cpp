@@ -203,7 +203,7 @@ void MicToNAOqiWorkerThread::run()
             {
                 if (!m_muted)
                 {
-                    memcpy(m_buffers[1], m_buffers[0], m_numSamples[1]* NBOFOUTPUTCHANNELS * CHANNELBYTES);
+                    memcpy(m_buffers[1], m_buffers[0], m_numSamples[0]* NBOFOUTPUTCHANNELS * CHANNELBYTES);
                     m_numSamples[1] = m_numSamples[0];
                     m_naoInterface->writeAudioBuffer(m_buffers[1], m_numSamples[1]);
                 }
